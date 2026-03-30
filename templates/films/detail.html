@@ -13,23 +13,8 @@
             <div class="trailer-section">
                 <h3>Trailer</h3>
                 <div class="video-wrapper">
-                    <div class="youtube-preview">
-                        <img src="https://img.youtube.com/vi/{{ trailer_key }}/maxresdefault.jpg" 
-                             alt="Trailer di {{ movie.title }}" 
-                             class="trailer-thumbnail"
-                             onerror="this.src='https://img.youtube.com/vi/{{ trailer_key }}/hqdefault.jpg'">
-                        <div class="play-button-overlay">
-                            <a href="https://www.youtube.com/watch?v={{ trailer_key }}" 
-                               target="_blank" 
-                               rel="noopener noreferrer" 
-                               class="play-button">
-                                <div class="play-icon">▶</div>
-                                <span>Guarda su YouTube</span>
-                            </a>
-                        </div>
-                    </div>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ trailer_key }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <div class="trailer-info">
-                        <p>Clicca sull'immagine per guardare il trailer su YouTube</p>
                         <a href="https://www.youtube.com/results?search_query={{ movie.title|urlencode }}+trailer" 
                            target="_blank" 
                            rel="noopener noreferrer" 

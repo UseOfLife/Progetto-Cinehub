@@ -116,3 +116,5 @@ LOGOUT_REDIRECT_URL = '/'
 
 TMDB_API_KEY = os.getenv('TMDB_API_KEY')
 TMDB_READ_ACCESS_TOKEN = os.getenv('TMDB_READ_ACCESS_TOKEN')
+
+SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"

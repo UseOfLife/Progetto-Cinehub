@@ -16,7 +16,7 @@ def _get(endpoint, params=None):
         'Content-Type': 'application/json;charset=utf-8'
     }
     
-    print('TMDB REQUEST:', url, params)
+    print('TMDB REQUEST:', url, params)                       # Log di debug per impaginazione che non parte
     resp = requests.get(url, params=params, headers=headers)
     print('TMDB STATUS:', resp.status_code)
     print('TMDB RESPONSE:', resp.text[:500])
