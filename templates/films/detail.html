@@ -9,28 +9,35 @@
             <h3>{{ movie.tagline }}</h3>
             <div class="genres">{% for g in movie.genres %}<span>{{ g.name }}</span>{% endfor %}</div>
             <p>{{ movie.overview }}</p>
-            {% if trailer_keys %}
-            <div class="trailer">
-                {% for key in trailer_keys %}
-                <iframe width="480" height="270" 
-                    src="https://www.youtube.com/embed/{{ key }}?rel=0&modestbranding=1&autohide=1&showinfo=0" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen 
-                    style="margin-bottom: 1em; border-radius: 8px;"
-                    onerror="this.style.display='none';var next=this.nextElementSibling;if(next&&next.classList.contains('yt-fallback')){next.style.display='block';}">
-                </iframe>
-                        <div style="margin-top: 0.5em;">
-                            <a href="https://www.youtube.com/watch?v={{ key }}" target="_blank" rel="noopener noreferrer">
-                                Guarda su YouTube <span style="font-size:1.2em;vertical-align:middle;">&#8599;</span>
+            {% if trailer_key %}
+            <div class="trailer-section">
+                <h3>Trailer</h3>
+                <div class="video-wrapper">
+                    <div class="youtube-preview">
+                        <img src="https://img.youtube.com/vi/{{ trailer_key }}/maxresdefault.jpg" 
+                             alt="Trailer di {{ movie.title }}" 
+                             class="trailer-thumbnail"
+                             onerror="this.src='https://img.youtube.com/vi/{{ trailer_key }}/hqdefault.jpg'">
+                        <div class="play-button-overlay">
+                            <a href="https://www.youtube.com/watch?v={{ trailer_key }}" 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               class="play-button">
+                                <div class="play-icon">▶</div>
+                                <span>Guarda su YouTube</span>
                             </a>
                         </div>
-                <div class="yt-fallback" style="display:none; color: red; background: #222; padding: 1em; border-radius: 8px;">
-                    <strong>Errore 153</strong><br>
-                    Errore di configurazione del video player.<br>
-                    Video non disponibile. Prova a cercare il trailer su <a href="https://www.youtube.com/results?search_query={{ movie.title|urlencode }}+trailer" target="_blank" style="color:yellow;">YouTube</a>.
+                    </div>
+                    <div class="trailer-info">
+                        <p>Clicca sull'immagine per guardare il trailer su YouTube</p>
+                        <a href="https://www.youtube.com/results?search_query={{ movie.title|urlencode }}+trailer" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="search-link">
+                            🔍 Cerca altri trailer
+                        </a>
+                    </div>
                 </div>
-                {% endfor %}
             </div>
             {% endif %}
         </div>
@@ -60,3 +67,35 @@
     </div>
 </div>
 {% endblock %}
+<script>
+// Gestione errore 153 YouTube con fallback semplice
+document.addEventListener('DOMContentLoaded', function() {
+    const iframe = document.getElementById('youtube-trailer');
+    const fallback = document.getElementById('trailer-fallback');
+    
+    if (iframe && fallback) {
+        // Timeout per detectare se l'iframe carica correttamente
+        setTimeout(function() {
+            try {
+                // Prova a verificare se l'iframe è carico
+                if (iframe.contentWindow) {
+                    // Se non ci sono errori evidenti, lascia l'iframe
+                    console.log('YouTube iframe loaded successfully');
+                }
+            } catch (error) {
+                // Se c'è un errore di accesso, mostra il fallback
+                console.log('YouTube embed failed, showing fallback');
+                iframe.style.display = 'none';
+                fallback.style.display = 'block';
+            }
+        }, 3000);
+        
+        // Gestione errori diretti dell'iframe
+        iframe.addEventListener('error', function() {
+            console.log('YouTube iframe error, showing fallback');
+            iframe.style.display = 'none';
+            fallback.style.display = 'block';
+        });
+    }
+});
+</script>

@@ -14,9 +14,36 @@
             <input type="text" name="q" placeholder="Cerca film..." required>
             <button type="submit">🔍</button>
         </form>
+        <div class="genre-dropdown">
+            <button class="genre-btn">Generi ▼</button>
+            <div class="genre-menu">
+                <a href="{% url 'genre' 'action' %}">Action</a>
+                <a href="{% url 'genre' 'adventure' %}">Adventure</a>
+                <a href="{% url 'genre' 'animation' %}">Animation</a>
+                <a href="{% url 'genre' 'comedy' %}">Comedy</a>
+                <a href="{% url 'genre' 'crime' %}">Crime</a>
+                <a href="{% url 'genre' 'documentary' %}">Documentary</a>
+                <a href="{% url 'genre' 'drama' %}">Drama</a>
+                <a href="{% url 'genre' 'family' %}">Family</a>
+                <a href="{% url 'genre' 'fantasy' %}">Fantasy</a>
+                <a href="{% url 'genre' 'history' %}">History</a>
+                <a href="{% url 'genre' 'horror' %}">Horror</a>
+                <a href="{% url 'genre' 'music' %}">Music</a>
+                <a href="{% url 'genre' 'mystery' %}">Mystery</a>
+                <a href="{% url 'genre' 'romance' %}">Romance</a>
+                <a href="{% url 'genre' 'science-fiction' %}">Science Fiction</a>
+                <a href="{% url 'genre' 'tv-movie' %}">TV Movie</a>
+                <a href="{% url 'genre' 'thriller' %}">Thriller</a>
+                <a href="{% url 'genre' 'war' %}">War</a>
+                <a href="{% url 'genre' 'western' %}">Western</a>
+            </div>
+        </div>
         <div class="auth-links">
             {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}">Logout</a>
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background: none; border: none; color: var(--accent); padding: 0; margin-left: 1rem; text-decoration: none; font-weight: 500; cursor: pointer;">Logout</button>
+                </form>
             {% else %}
                 <a href="{% url 'login' %}">Login</a>
                 <a href="{% url 'register' %}">Registrati</a>

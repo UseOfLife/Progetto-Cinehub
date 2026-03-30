@@ -31,10 +31,7 @@
     text-shadow: 0 0 30px rgba(226, 182, 22, 0.3);
 }
 </style>
-<h1 class="page-title">Film Popolari</h1>
-{% if error %}
-<div style="color: red; background: #222; padding: 1em;">Errore TMDB: {{ error }}</div>
-{% endif %}
+<h1 class="page-title">Film {{ genre_name }}</h1>
 <div class="movies-grid">
     {% for movie in movies %}
     <div class="movie-card">
@@ -56,13 +53,13 @@
 </div>
 <div class="pagination">
     {% if page_obj.number > 1 %}
-        <a href="?page=1" class="double-arrow">«</a>
+        <a href="?genre={{ genre_slug }}&page=1" class="double-arrow">«</a>
     {% else %}
         <span class="double-arrow disabled">«</span>
     {% endif %}
     
     {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}" class="arrow">‹</a>
+        <a href="?genre={{ genre_slug }}&page={{ page_obj.previous_page_number }}" class="arrow">‹</a>
     {% else %}
         <span class="arrow disabled">‹</span>
     {% endif %}
@@ -71,18 +68,18 @@
         {% if num == page_obj.number %}
             <span class="current-page">{{ num }}</span>
         {% else %}
-            <a href="?page={{ num }}">{{ num }}</a>
+            <a href="?genre={{ genre_slug }}&page={{ num }}">{{ num }}</a>
         {% endif %}
     {% endfor %}
     
     {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}" class="arrow">›</a>
+        <a href="?genre={{ genre_slug }}&page={{ page_obj.next_page_number }}" class="arrow">›</a>
     {% else %}
         <span class="arrow disabled">›</span>
     {% endif %}
     
     {% if page_obj.number < page_obj.paginator.num_pages %}
-        <a href="?page={{ page_obj.paginator.num_pages }}" class="double-arrow">»</a>
+        <a href="?genre={{ genre_slug }}&page={{ page_obj.paginator.num_pages }}" class="double-arrow">»</a>
     {% else %}
         <span class="double-arrow disabled">»</span>
     {% endif %}
