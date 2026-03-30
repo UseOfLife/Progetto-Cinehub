@@ -1,0 +1,319 @@
+/* IMDB dark theme variables */
+:root {
+    --bg-primary: #0d0d0d;
+    --bg-secondary: #1a1a2e;
+    --bg-card: #16213e;
+    --accent: #e2b616;
+    --text-primary: #ffffff;
+    --text-muted: #a0a0b0;
+    --border: #2a2a4a;
+    --star-empty: #444;
+    --star-filled: #e2b616;
+}
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+}
+
+.logo a {
+    color: var(--accent);
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.logo span {
+    color: var(--text-primary);
+}
+
+.search-form input {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.4rem 1rem;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+.search-form button {
+    background: var(--accent);
+    border: none;
+    color: var(--bg-primary);
+    padding: 0.4rem 1rem;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.auth-links a {
+    color: var(--accent);
+    margin-left: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.movie-card {
+    background: var(--bg-card);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px #0008;
+    transition: transform 0.2s;
+}
+
+.movie-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px #000a;
+}
+
+.movie-card img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+}
+
+/* Reset completo per tutti i link nelle card */
+.movie-card a,
+.movie-card a * {
+    text-decoration: none !important;
+    color: inherit !important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.movie-card a:link,
+.movie-card a:visited,
+.movie-card a:hover,
+.movie-card a:active,
+.movie-card a:focus {
+    text-decoration: none !important;
+    color: inherit !important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.movie-info {
+    padding: 0.5rem 1rem 1rem 1rem;
+}
+
+.movie-info h2 {
+    font-size: 1.1rem;
+    margin: 0.5rem 0 0.2rem 0;
+    color: var(--text-primary);
+}
+
+.movie-rating {
+    color: var(--accent);
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.ratings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0.3rem 0;
+}
+
+.cinehub-rating {
+    color: #4CAF50 !important;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.movie-year {
+    color: var(--text-muted);
+}
+
+.hero {
+    width: 100vw;
+    min-height: 340px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.hero-overlay {
+    background: linear-gradient(90deg, var(--bg-primary) 60%, #0000 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    min-height: 340px;
+}
+
+.poster {
+    width: 180px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px #000a;
+    margin-right: 2rem;
+}
+
+.hero-info {
+    color: var(--text-primary);
+}
+
+.hero-info h1 {
+    margin: 0;
+    font-size: 2.2rem;
+}
+
+.hero-info h3 {
+    color: var(--accent);
+    margin: 0.5rem 0 1rem 0;
+}
+
+.genres span {
+    background: var(--border);
+    color: var(--text-muted);
+    border-radius: 4px;
+    padding: 0.2rem 0.7rem;
+    margin-right: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.trailer {
+    margin-top: 1.5rem;
+}
+
+.rating-section {
+    margin: 2rem 0 1rem 0;
+    text-align: left;
+}
+
+.stars {
+    display: inline-block;
+}
+
+.star {
+    font-size: 32px;
+    color: var(--star-empty);
+    cursor: pointer;
+    transition: color 0.2s;
+    user-select: none;
+}
+
+.star.filled {
+    color: var(--star-filled);
+}
+
+#avg-rating {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.comments-section {
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+#comment-form textarea {
+    width: 100%;
+    min-height: 60px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.7rem;
+    margin-bottom: 0.7rem;
+    resize: vertical;
+}
+
+#comment-form button {
+    background: var(--accent);
+    color: var(--bg-primary);
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#comments-list {
+    margin-top: 1.5rem;
+}
+
+.comment {
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    padding: 0.7rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.comment strong {
+    color: var(--accent);
+}
+
+.comment-date {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.pagination a {
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    padding: 0.3rem 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s;
+}
+
+.pagination a:hover {
+    background: var(--accent);
+    color: var(--bg-primary);
+}
+
+.auth-form {
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 2rem 2.5rem;
+    margin: 3rem auto;
+    max-width: 400px;
+    box-shadow: 0 2px 8px #0008;
+}
+
+.auth-form h2 {
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

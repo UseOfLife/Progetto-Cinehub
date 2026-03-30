@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="hero" style="background-image: url('{{ movie.backdrop_url }}');">
+    <div class="hero-overlay">
+        <img class="poster" src="{{ movie.poster_url }}" alt="Poster {{ movie.title }}">
+        <div class="hero-info">
+            <h1>{{ movie.title }}</h1>
+            <h3>{{ movie.tagline }}</h3>
+            <div class="genres">{% for g in movie.genres %}<span>{{ g.name }}</span>{% endfor %}</div>
+            <p>{{ movie.overview }}</p>
+            {% if trailer_keys %}
+            <div class="trailer">
+                {% for key in trailer_keys %}
+                <iframe width="480" height="270" 
+                    src="https://www.youtube.com/embed/{{ key }}?rel=0&modestbranding=1&autohide=1&showinfo=0" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen 
+                    style="margin-bottom: 1em; border-radius: 8px;"
+                    onerror="this.style.display='none';var next=this.nextElementSibling;if(next&&next.classList.contains('yt-fallback')){next.style.display='block';}">
+                </iframe>
+                        <div style="margin-top: 0.5em;">
+                            <a href="https://www.youtube.com/watch?v={{ key }}" target="_blank" rel="noopener noreferrer">
+                                Guarda su YouTube <span style="font-size:1.2em;vertical-align:middle;">&#8599;</span>
+                            </a>
+                        </div>
+                <div class="yt-fallback" style="display:none; color: red; background: #222; padding: 1em; border-radius: 8px;">
+                    <strong>Errore 153</strong><br>
+                    Errore di configurazione del video player.<br>
+                    Video non disponibile. Prova a cercare il trailer su <a href="https://www.youtube.com/results?search_query={{ movie.title|urlencode }}+trailer" target="_blank" style="color:yellow;">YouTube</a>.
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="rating-section" data-tmdb-id="{{ movie.id }}" data-saved="{{ user_rating|default:0 }}">
+    <div class="stars">
+        {% for i in "1234567890" %}
+        <span class="star {% if user_rating >= forloop.counter %}filled{% endif %}" data-value="{{ forloop.counter }}">★</span>
+        {% endfor %}
+    </div>
+    <div>Media utenti: <span id="avg-rating">{{ avg_rating|default:"-" }}</span></div>
+</div>
+<div class="comments-section">
+    <form id="comment-form" method="post">
+        {% csrf_token %}
+        <textarea id="comment-text" name="text" maxlength="1000" required placeholder="Scrivi un commento..."></textarea>
+        <button type="submit">Invia</button>
+    </form>
+    <div id="comments-list">
+        {% for comment in comments %}
+        <div class="comment">
+            <strong>{{ comment.user.username }}</strong> <span class="comment-date">{{ comment.created_at|date:"d/m/Y H:i" }}</span>
+            <div>{{ comment.text }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

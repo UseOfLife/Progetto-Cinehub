@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+.movie-card a, .movie-card a * {
+    text-decoration: none !important;
+    color: inherit !important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.movie-card a:link, .movie-card a:visited, .movie-card a:hover, .movie-card a:active, .movie-card a:focus {
+    text-decoration: none !important;
+    color: inherit !important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+</style>
+<h1>Film popolari</h1>
+{% if error %}
+<div style="color: red; background: #222; padding: 1em;">Errore TMDB: {{ error }}</div>
+{% endif %}
+<div class="movies-grid">
+    {% for movie in movies %}
+    <div class="movie-card">
+        <a href="{% url 'film_detail' movie.id %}">
+            <img src="{{ movie.poster_url }}" alt="Poster {{ movie.title }}">
+            <div class="movie-info">
+                <h2>{{ movie.title }}</h2>
+                <div class="ratings-container">
+                    <span class="movie-rating">★ TMDB {{ movie.vote_average }}</span>
+                    {% if movie.cinehub_rating %}
+                    <span class="cinehub-rating">🎬 CineHub {{ movie.cinehub_rating }}/10</span>
+                    {% endif %}
+                </div>
+                <span class="movie-year">{{ movie.release_date|slice:':4' }}</span>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">&laquo; Prev</a>
+    {% endif %}
+    <span>Pagina {{ page_obj.number }} di {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next &raquo;</a>
+    {% endif %}
+</div>
+{% endblock %}
