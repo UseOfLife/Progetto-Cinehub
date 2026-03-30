@@ -34,21 +34,18 @@ def get_movie_detail(tmdb_id):
 
 def get_movie_trailer(tmdb_id):
     data = _get(f'/movie/{tmdb_id}/videos')
-    # Cerca solo trailer validi, prioritizzando 'Trailer' poi 'Teaser'
     trailer_key = None
     for video in data.get('results', []):
         if video['site'] == 'YouTube' and video['type'] == 'Trailer' and video['official']:
             trailer_key = video['key']
             break
     
-    # Se non trovi trailer ufficiali, cerca qualsiasi trailer
     if not trailer_key:
         for video in data.get('results', []):
             if video['site'] == 'YouTube' and video['type'] == 'Trailer':
                 trailer_key = video['key']
                 break
     
-    # Se ancora non trovi trailer, cerca teaser
     if not trailer_key:
         for video in data.get('results', []):
             if video['site'] == 'YouTube' and video['type'] == 'Teaser':

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Review(models.Model):
 	tmdb_id = models.IntegerField()
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	rating = models.IntegerField()  # 1-5
+	rating = models.IntegerField()
 	created_at = models.DateTimeField(auto_now_add=True)
 
 	class Meta:

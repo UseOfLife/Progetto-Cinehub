@@ -19,15 +19,12 @@ def home(request):
 		total_pages = data.get('total_pages', 1)
 		for m in movies:
 			m['poster_url'] = build_poster_url(m.get('poster_path'))
-			# Aggiungi media voti utenti (voto cinehub)
 			avg_rating = Review.objects.filter(tmdb_id=m['id']).aggregate(avg=Avg('rating'))['avg']
 			m['cinehub_rating'] = round(avg_rating, 1) if avg_rating else None
-		# Crea paginazione smart con massimo 5 tasti visibili
 		page_range = []
 		start_page = max(1, page - 2)
 		end_page = min(total_pages, start_page + 4)
 		
-		# Se siamo vicino alla fine, sposta l'inizio
 		if end_page - start_page < 4:
 			start_page = max(1, end_page - 4)
 		
@@ -81,16 +78,13 @@ def search(request):
 	total_pages = data.get('total_pages', 1)
 	for m in movies:
 		m['poster_url'] = build_poster_url(m.get('poster_path'))
-		# Aggiungi media voti utenti (voto cinehub)
 		avg_rating = Review.objects.filter(tmdb_id=m['id']).aggregate(avg=Avg('rating'))['avg']
 		m['cinehub_rating'] = round(avg_rating, 1) if avg_rating else None
 	
-	# Crea paginazione smart con massimo 5 tasti visibili
 		page_range = []
 		start_page = max(1, page - 2)
 		end_page = min(total_pages, start_page + 4)
 		
-		# Se siamo vicino alla fine, sposta l'inizio
 		if end_page - start_page < 4:
 			start_page = max(1, end_page - 4)
 		
@@ -113,7 +107,6 @@ def search(request):
 	return render(request, 'films/search.html', {'movies': movies, 'query': query, 'page_obj': page_obj})
 
 def genre_view(request, genre_slug):
-	# Mappa dei generi slug agli ID di TMDB
 	genre_map = {
 		'action': '28',
 		'adventure': '12',
@@ -137,7 +130,7 @@ def genre_view(request, genre_slug):
 	}
 	
 	page = int(request.GET.get('page', 1))
-	genre_id = genre_map.get(genre_slug, '28')  # Default a action se non trovato
+	genre_id = genre_map.get(genre_slug, '28')
 	genre_name = genre_slug.replace('-', ' ').title()
 	
 	try:
@@ -147,16 +140,13 @@ def genre_view(request, genre_slug):
 		
 		for m in movies:
 			m['poster_url'] = build_poster_url(m.get('poster_path'))
-			# Aggiungi media voti utenti (voto cinehub)
 			avg_rating = Review.objects.filter(tmdb_id=m['id']).aggregate(avg=Avg('rating'))['avg']
 			m['cinehub_rating'] = round(avg_rating, 1) if avg_rating else None
 		
-		# Crea paginazione smart con massimo 5 tasti visibili
 		page_range = []
 		start_page = max(1, page - 2)
 		end_page = min(total_pages, start_page + 4)
 		
-		# Se siamo vicino alla fine, sposta l'inizio
 		if end_page - start_page < 4:
 			start_page = max(1, end_page - 4)
 		
